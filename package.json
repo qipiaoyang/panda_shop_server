@@ -45,11 +45,12 @@
       "name": "thinkDemo",
       "description": "application created by thinkjs",
       "author": "齐飘洋 <qpy@xutao.vip>",
-      "babel": true
+      "babel": true,
+      "defaultModule": "admin"
     },
     "projectName": "thinkDemo",
     "template": "/Users/qipiaoyang/.config/yarn/global/node_modules/think-cli/default_template",
     "clone": false,
-    "isMultiModule": false
+    "isMultiModule": true
   }
 }
