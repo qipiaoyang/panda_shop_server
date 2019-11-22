@@ -53,10 +53,19 @@
 -- 组合where子句顺序(AND 顺序优先于OR)
 -- SELECT prod_name, prod_price FROM products WHERE (vend_id = 1002 OR vend_id = 1003) AND prod_price >= 10;
 
--- 组合where子句(in, not in)
+-- 组合where子句(in, not in) in比OR 执行速度更快，还可以包含where子句
 
 -- SELECT prod_name, prod_price FROM products WHERE vend_id IN (1002, 1003);
-SELECT prod_name, prod_price FROM products WHERE vend_id NOT IN (1002, 1003);
+-- SELECT prod_name, prod_price FROM products WHERE vend_id NOT IN (1002, 1003);
+
+-- 使用正则表达式
+-- SELECT prod_name FROM products WHERE prod_name REGEXP '1000|2000' ORDER BY prod_name;
+
+-- 计算字段 concat
+-- SELECT Concat(vend_name, "(" , vend_country, ")") AS test FROM vendors ORDER BY vend_name;
+
+
+
 
 
 
