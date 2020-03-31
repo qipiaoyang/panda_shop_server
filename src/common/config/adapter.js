@@ -36,12 +36,12 @@ exports.model = {
   },
   mysql: {
     handle: mysql,
-    database: 'school',
+    database: 'panda',
     prefix: 'think_',
     encoding: 'utf8',
-    host: '127.0.0.1',
+    host: '47.75.78.93',
     port: '3306',
-    user: 'root',
+    user: 'qipiaoyang',
     password: 'qi956634645',
     dateStrings: true
   }

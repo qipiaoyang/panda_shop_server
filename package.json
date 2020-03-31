@@ -5,6 +5,7 @@
   "author": "齐飘洋 <qpy@xutao.vip>",
   "scripts": {
     "dev": "node development.js",
+    "doc": "apidoc -i app/ -o apidoc",
     "test": "THINK_UNIT_TEST=1 nyc ava test/ && nyc report --reporter=html",
     "compile": "babel --no-babelrc src/ --presets think-node --out-dir app/",
     "lint": "eslint src/",
@@ -54,5 +55,12 @@
     "template": "/Users/qipiaoyang/.config/yarn/global/node_modules/think-cli/default_template",
     "clone": false,
     "isMultiModule": true
+  },
+  "apidoc": {
+    "name": "thinkjsDemo API",
+    "version": "1.0.0",
+    "title": "thinkjsDemo API",
+    "descreption": "thinkjsDemo API",
+    "url": "http://127.0.0.1:5000"
   }
 }

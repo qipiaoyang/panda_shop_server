@@ -5,7 +5,7 @@
 -- SELECT vend_id FROM products;
 
 -- 去重sql
--- SELECT DISTINCT vend_id FROM products; 
+-- SELECT DISTINCT vend_id FROM products;
 
 -- 限制返回结果条数
 -- SELECT prod_name FROM products LIMIT 5;
@@ -61,12 +61,15 @@
 -- 使用正则表达式
 -- SELECT prod_name FROM products WHERE prod_name REGEXP '1000|2000' ORDER BY prod_name;
 
--- 计算字段 concat
--- SELECT Concat(vend_name, "(" , vend_country, ")") AS test FROM vendors ORDER BY vend_name;
+-- 计算字段 concat(concat连接注意双引号)
+--SELECT Concat(vend_name, '(' , vend_country, ')') AS test FROM vendors ORDER BY vend_name;
 
 
+--连表查询
+--SELECT order_num, order_date, cust_name, cust_address, cust_city FROM customers,orders WHERE orders.cust_id = 10001 AND orders.cust_id = customers.cust_id;
+--SELECT order_num, order_date, cust_name, cust_address, cust_city FROM orders INNER JOIN customers WHERE orders.cust_id = 10001 AND orders.cust_id = customers.cust_id;
+--SELECT cust_name, cust_address, cust_city FROM customers WHERE cust_id IN (SELECT cust_id FROM orders WHERE cust_id = 10003);
+SELECT customers.cust_name, customers.cust_address, customers.cust_city, orders.order_num, orders.order_date FROM customers LEFT OUTER JOIN orders ON customers.cust_id = orders.cust_id AND orders.cust_id = 10001;
 
 
-
-
-
+-- INSERT INTO orders_extend(id, pid, catename, cateorder, createtime) VALUES(1,0,'新闻',0,0),(2,0,'图片',0,0),(3,1,'国内新闻',0,0),(4,1,'国际新闻',0,0),(5,3,'北京新闻',0,0),(6,4,'美国新闻',0,0),(7,2,'美女图片',0,0),(8,2,'风景图片',0,0),(9,7,'日韩明星',0,0),(10,9,'大陆明星',0,0);
