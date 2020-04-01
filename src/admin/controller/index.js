@@ -15,15 +15,9 @@ module.exports = class extends Base {
   * @apiSuccess {String} lastname  Lastname of the User.
   */
   async indexAction() {
-    var sqlStr = fs.readFileSync("src/test.sql").toString().split("\n"),
-      result = [];
-
-    sqlStr.map((item) => {
-      if (!item.includes("--") && item !== "") {
-        result.push(item);
-      }
-    });
-    const data = await this.model("users").query(result.join())
+    const data = {
+      "name": "panda"
+    };
     return this.success(data)
   }
 
@@ -43,14 +37,10 @@ module.exports = class extends Base {
   }
 
   async getAction() {
-    // const data = await  this.model("orders_extend").query("SELECT * FROM orders_extend");
-
-    // console.log(this.arrayToTree(data,0),"daya");
-    // console.log(data)
-
-    // return this.success(this.arrayToTree(data,0));
-    const data = await this.model("orders_extend").field("catename").where({id: 4}).find();
-    return this.success(data,"data=======")
+    const data = {
+      "name": "panda"
+    };
+    return this.success(data);
   }
 
 
