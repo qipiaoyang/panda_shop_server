@@ -19,7 +19,16 @@ module.exports = class extends Base {
     return this.success(data)
   }
 
-
+  /**
+   * @api {post} /admin/auth/login 管理后台登陆接口
+   * @apiName 用户登陆
+   * @apiGroup 用户模块
+   *
+   * @apiParam {String} mobile 用户手机号
+   * @apiParam {String} password 用户密码
+   *
+   * @apiSuccess {String} token 用户token
+   */
   async loginAction() {
     const mobile = this.post("mobile");
     const password = this.post("password");
@@ -44,10 +53,13 @@ module.exports = class extends Base {
     delete data.password;
     const result = Object.assign({},{
       token: token,
-      userinfo: data
     });
 
     return this.success(result);
+  }
+
+  async logoutAction() {
+    return this.success();
   }
 
 
