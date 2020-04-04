@@ -13,37 +13,7 @@ module.exports = class extends Base {
     assert(think.isFunction(this.model), 'this.model must be a function');
     this.modelInstance = this.model(this.resource);
   }
-  async __before() {
-    this.ctx.state.token = this.ctx.header['token'] || '';
-    const tokenSerivce = this.service('token');
-    this.ctx.state.userInfo = await tokenSerivce.getUserInfo(this.ctx.state.token);
-
-    // 获取所有开放方法
-    const publicAction = this.config('publicAction');
-    if (!publicAction.includes(this.ctx.url)) {
-      if (this.ctx.state.userInfo.id <= 0) {
-        return this.fail(401, '请先登录');
-      }
-      let userInfo = await this.getUserInfo();
-      if (think.isEmpty(userInfo)) {
-        return this.fail(401, '用户不存在，请先登录');
-      } else {
-        this.ctx.state.userInfo = userInfo;
-      }
-    }
-  }
-
-  async getUserInfo() {
-    let userId = this.ctx.state.userInfo.id;
-    if (think.isEmpty(userId)) return false;
-    let userInfo = await this.model('user').getUser({id: userId});
-    if (think.isEmpty(userInfo)) return false;
-    return userInfo;
-  }
-
-
-
-
+  __before() {}
   /**
    * get resource
    * @return {String} [resource name]
@@ -66,6 +36,7 @@ module.exports = class extends Base {
     let data;
     if (this.id) {
       const pk = this.modelInstance.pk;
+
       data = await this.modelInstance.where({ [pk]: this.id }).find();
       return this.success(data);
     }

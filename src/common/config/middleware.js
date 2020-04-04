@@ -33,7 +33,9 @@ module.exports = [
   },
   {
     handle: 'router',
-    options: {}
+    options: {
+
+    }
   },
   'logic',
   'controller'

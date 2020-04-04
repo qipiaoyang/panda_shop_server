@@ -1,7 +1,7 @@
-// const Base = require('./base.js');
-const BaseRest = require('./rest.js');
+const Base = require('./base.js');
+// const BaseRest = require('./rest.js');
 
-module.exports = class extends BaseRest {
+module.exports = class extends Base {
 
   /**
   * @api {get} /user/:id Request User information
