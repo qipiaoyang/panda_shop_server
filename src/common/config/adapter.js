@@ -37,7 +37,7 @@ exports.model = {
   mysql: {
     handle: mysql,
     database: 'panda',
-    prefix: 'think_',
+    prefix: 'p_',
     encoding: 'utf8',
     host: '47.75.78.93',
     port: '3306',
