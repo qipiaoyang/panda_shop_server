@@ -39,7 +39,7 @@ module.exports = class extends Base {
     }
     // 加密密码与数据库密码进行对比
     const encrypt_password = encryptPassword(password);
-    const data = await this.model("auth_user").where({ mobile: mobile }).find();
+    const data = await this.model("user").where({ mobile: mobile }).find();
     if(encrypt_password !== data.password) {
       return this.fail("请输入正确的密码");
     }
