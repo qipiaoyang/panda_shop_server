@@ -9,7 +9,7 @@ module.exports = {
   // 可以公开访问的Action
   publicAction: [
     // 格式为： controller+action
-
     '/admin/auth/login',
+    '/admin/auth/logout',
   ]
 };
