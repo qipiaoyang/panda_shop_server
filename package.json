@@ -1,6 +1,6 @@
 {
-  "name": "thinkDemo",
-  "description": "application created by thinkjs",
+  "name": "panda",
+  "description": "熊猫商城服务端",
   "version": "1.0.0",
   "author": "齐飘洋 <qpy@xutao.vip>",
   "scripts": {
