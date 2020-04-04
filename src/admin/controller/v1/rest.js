@@ -40,8 +40,20 @@ module.exports = class extends Base {
       data = await this.modelInstance.where({ [pk]: this.id }).find();
       return this.success(data);
     }
-    data = await this.modelInstance.select();
-    return this.success(data);
+
+    // 所有对象
+    let order = this.get('order') || 'id ASC';
+    let page = this.get('page');
+    if(!page){
+      // 不传分页默认返回所有
+      data = await this.modelInstance.order(order).select();
+      return this.success(data);
+    }else {
+      // 传了分页返回分页数据
+      let pageSize = this.get('size') || 10;
+      data = await this.modelInstance.page(page, pageSize).order(order).countSelect();
+      return this.success(data);
+    }
   }
   /**
    * put resource
