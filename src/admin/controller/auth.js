@@ -1,6 +1,7 @@
-const Base = require('./base.js');
+// const Base = require('./base.js');
+const BaseRest = require('./rest.js');
 
-module.exports = class extends Base {
+module.exports = class extends BaseRest {
 
   /**
   * @api {get} /user/:id Request User information
@@ -13,9 +14,7 @@ module.exports = class extends Base {
   * @apiSuccess {String} lastname  Lastname of the User.
   */
   async indexAction() {
-    const data = {
-      "name": "panda111"
-    };
+
     return this.success(data)
   }
 
@@ -58,6 +57,15 @@ module.exports = class extends Base {
     return this.success(result);
   }
 
+  /**
+   * @api {post} /admin/auth/logout 管理后台退出接口
+   * @apiName 用户登出
+   * @apiGroup 用户模块
+   *
+   * @apiParam {String} token 用户token
+   *
+   *
+   */
   async logoutAction() {
     return this.success();
   }
