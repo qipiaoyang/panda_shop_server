@@ -2,7 +2,7 @@
   "apps": [{
     "name": "panda_shop_server",
     "script": "production.js",
-    "cwd": "/data/node/panda_shop_server",
+    "cwd": "/Users/qipiaoyang/Documents/github/thinkDemo",
     "exec_mode": "fork",
     "max_memory_restart": "1G",
     "autorestart": true,

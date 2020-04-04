@@ -1,6 +1,7 @@
 const assert = require('assert');
+const Base = require('./base.js');
 
-module.exports = class extends think.Controller {
+module.exports = class extends Base {
   static get _REST() {
     return true;
   }
