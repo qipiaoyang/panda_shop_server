@@ -10,3 +10,24 @@ global.encryptPassword = function(password, md5encoded) {
   password = md5encoded ? password : think.md5(password);
   return think.md5(think.md5('panda') + password + think.md5('qi'));
 };
+
+/**
+ * 列表转树
+ * @param arr
+ * @param pid
+ * @returns {Array}
+ */
+global.arrayToTree = function(arr, pid) {
+  let temp = [];
+  let treeArr = arr;
+  treeArr.forEach((item, index) => {
+    if (item.pid == pid) {
+      if (this.arrayToTree(treeArr, treeArr[index].id).length > 0) {
+        // 递归调用此函数
+        treeArr[index].children = this.arrayToTree(treeArr, treeArr[index].id);
+      }
+      temp.push(treeArr[index]);
+    }
+  });
+  return temp;
+}

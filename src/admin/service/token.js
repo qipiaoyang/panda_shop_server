@@ -5,7 +5,6 @@ module.exports = class extends think.Service {
 
   constructor(){
     super();
-    this.name = 'api-token';
   }
 
   /**
