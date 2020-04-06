@@ -54,7 +54,7 @@ module.exports = class extends BaseRest {
                 }
             }
             data.reg_time = getTime();
-            // data.update_time = getTime();
+            data.update_time = getTime();
             const insertId = await this.modelInstance.add(data);
             return this.success({id: insertId});
         } catch (e) {
