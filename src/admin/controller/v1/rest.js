@@ -65,7 +65,6 @@ module.exports = class extends Base {
     return '';
   }
   async getAction() {
-    console.log(11111);
     let data;
     if (this.id) {
       const pk = this.modelInstance.pk;

@@ -31,3 +31,11 @@ global.arrayToTree = function(arr, pid) {
   });
   return temp;
 }
+
+/**
+ * 获取时间戳
+ * @returns {Number}
+ */
+global.getTime = function() {
+  return new Date().getTime();
+}
