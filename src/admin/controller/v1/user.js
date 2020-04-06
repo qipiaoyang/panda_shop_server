@@ -8,6 +8,7 @@ module.exports = class extends BaseRest {
             if (this.id) {
                 const pk = this.modelInstance.pk;
                 data = await this.modelInstance.where({[pk]: this.id}).find();
+                delete data.password;
                 return this.success(data);
             }
             // 所有对象
