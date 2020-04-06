@@ -31,7 +31,7 @@ exports.model = {
   type: 'mysql',
   common: {
     logConnect: isDev,
-    logSql: isDev,
+    logSql: true,
     logger: msg => think.logger.info(msg)
   },
   mysql: {

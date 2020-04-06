@@ -5,9 +5,6 @@ module.exports = class extends think.Controller {
     const tokenSerivce = this.service('token');
     this.ctx.state.userInfo = await tokenSerivce.getUserInfo(this.ctx.state.token);
 
-
-
-    console.log(this.ctx.url,"url========")
     // 获取所有开放方法
     const publicAction = this.config('publicAction');
     if (!publicAction.includes(this.ctx.url)) {
