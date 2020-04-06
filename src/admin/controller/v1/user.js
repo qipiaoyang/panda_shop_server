@@ -30,24 +30,34 @@ module.exports = class extends BaseRest {
   }
 
   async postAction() {
-    let data = this.post();
-    if (think.isEmpty(data)) {
-      return this.fail('data is empty');
-    }
-    if(think.isEmpty(data.mobile)) {
-      return this.fail("请传入手机号");
-    }
-    if(data.password) {
-      data.password = encryptPassword(data.password);
-      const hasUser = await this.modelInstance.where({ mobile: data.mobile }).find();
-      if(!think.isEmpty(hasUser)) {
-        return this.fail("该用户已存在～")
+    try {
+      let data = this.post();
+      if (think.isEmpty(data)) {
+        return this.fail('data is empty');
       }
+      if(think.isEmpty(data.mobile)) {
+        return this.fail("请传入手机号");
+      }
+      if(think.isEmpty(data.password)) {
+        return this.fail("请传入密码");
+      }
+      if(data.password) {
+        data.password = encryptPassword(data.password);
+        const hasUser = await this.modelInstance.where({ mobile: data.mobile }).find();
+        if(!think.isEmpty(hasUser)) {
+          return this.fail("该用户已存在～");
+        }
+      }
+      data.reg_time = getTime();
+      // data.update_time = getTime();
+      const insertId = await this.modelInstance.add(data);
+      return this.success({ id: insertId });
+    } catch (e) {
+
+      think.logger.error(new Error(e),"eeeeeeee");
+      return this.fail(500, "接口异常！");
     }
-    data.reg_time = getTime();
-    data.update_time = getTime();
-    const insertId = await this.modelInstance.add(data);
-    return this.success({ id: insertId });
+
   }
 
   async putAction() {
