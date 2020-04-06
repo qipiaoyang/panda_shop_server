@@ -12,7 +12,7 @@ module.exports = class extends BaseRest {
                 return this.success(data);
             }
             // 所有对象
-            let order = this.get('order') || 'id ASC';
+            let order = this.get('order') || 'update_time ASC';
             let page = this.get('page');
             let name = this.get('name') || "";
             if (!page) {
