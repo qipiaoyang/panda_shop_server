@@ -12,18 +12,18 @@ module.exports = class extends BaseRest {
     // 所有对象
     let order = this.get('order') || 'id ASC';
     let page = this.get('page');
-    let name = this.get('name') || "";
+    let desc = this.get('desc') || "";
     if(!page){
       // 不传分页默认返回所有
       data = await this.modelInstance.where({
-        username: ['like', `%${name}%`]
+        desc: ['like', `%${desc}%`]
       }).order(order).select();
       return this.success(data);
     }else {
       // 传了分页返回分页数据
       let pageSize = this.get('size') || 10;
       data = await this.modelInstance.where({
-        username: ['like', `%${name}%`]
+        desc: ['like', `%${desc}%`]
       }).page(page, pageSize).order(order).countSelect();
       return this.success(data);
     }
@@ -34,17 +34,13 @@ module.exports = class extends BaseRest {
     if (think.isEmpty(data)) {
       return this.fail('data is empty');
     }
-    if(think.isEmpty(data.mobile)) {
-      return this.fail("请传入手机号");
+    if(think.isEmpty(data.desc)) {
+      return this.fail("请传入角色名称");
     }
-    if(data.password) {
-      data.password = encryptPassword(data.password);
-      const hasUser = await this.modelInstance.where({ mobile: data.mobile }).find();
-      if(!think.isEmpty(hasUser)) {
-        return this.fail("该用户已存在～")
-      }
+    const hasUser = await this.modelInstance.where({ desc: data.desc }).find();
+    if(!think.isEmpty(hasUser)) {
+      return this.fail("该角色已存在～")
     }
-    data.reg_time = getTime();
     const insertId = await this.modelInstance.add(data);
     return this.success({ id: insertId });
   }
@@ -59,10 +55,10 @@ module.exports = class extends BaseRest {
     if (think.isEmpty(data)) {
       return this.fail('data is empty');
     }
-    if(!think.isEmpty(data.mobile)) {
-      const hasUser = await this.modelInstance.where({ mobile: data.mobile }).find();
+    if(!think.isEmpty(data.desc)) {
+      const hasUser = await this.modelInstance.where({ desc: data.desc }).find();
       if(!think.isEmpty(hasUser)) {
-        return this.fail("该手机号已存在～")
+        return this.fail("该角色已存在～")
       }
     }
 
