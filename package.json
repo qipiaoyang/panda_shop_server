@@ -5,6 +5,7 @@
   "author": "齐飘洋 <qpy@xutao.vip>",
   "scripts": {
     "dev": "node development.js",
+    "prod": "node production.js",
     "doc": "apidoc -i app/ -o apidoc",
     "test": "THINK_UNIT_TEST=1 nyc ava test/ && nyc report --reporter=html",
     "compile": "babel --no-babelrc src/ --presets think-node --out-dir app/",

@@ -1,7 +1,7 @@
 {
   "apps": [{
     "name": "panda_shop_server",
-    "script": "development.js",
+    "script": "production.js",
     "cwd": "/data/node/panda_shop_server",
     "exec_mode": "fork",
     "max_memory_restart": "1G",

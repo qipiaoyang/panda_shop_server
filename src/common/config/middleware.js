@@ -21,7 +21,11 @@ module.exports = [
     handle: 'trace',
     enable: !think.isCli,
     options: {
-      debug: isDev
+      debug: isDev,
+      error(err) {
+        // 这里可以根据需要对错误信息进行处理，如：上报到监控系统
+        console.error(err);
+      }
     }
   },
   {
