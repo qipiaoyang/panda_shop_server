@@ -77,7 +77,7 @@ module.exports = class extends BaseRest {
                 return this.fail('data is empty');
             }
             if (!think.isEmpty(data.mobile)) {
-                const hasUser = await this.modelInstance.where({mobile: data.mobile}).find();
+                const hasUser = await this.modelInstance.where({mobile: data.mobile, id: ['!=', this.id]}).find();
                 if (!think.isEmpty(hasUser)) {
                     return this.fail("该手机号已存在～")
                 }
