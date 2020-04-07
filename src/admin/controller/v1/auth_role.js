@@ -70,7 +70,7 @@ module.exports = class extends BaseRest {
                 return this.fail('data is empty');
             }
             if (!think.isEmpty(data.desc)) {
-                const hasUser = await this.modelInstance.where({desc: data.desc}).find();
+                const hasUser = await this.modelInstance.where({desc: data.desc, id: ['!=' this.id]}).find();
                 if (!think.isEmpty(hasUser)) {
                     return this.fail("该角色已存在～")
                 }
