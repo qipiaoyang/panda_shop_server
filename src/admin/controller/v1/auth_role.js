@@ -37,6 +37,9 @@ module.exports = class extends BaseRest {
     async postAction() {
         try {
             let data = this.post();
+            data.module = "admin";
+            data.type = 1;
+            data.status = 1;
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
