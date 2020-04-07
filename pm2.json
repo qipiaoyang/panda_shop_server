@@ -9,7 +9,7 @@
     "node_args": [],
     "args": [],
     "env": {
-      "DE_LOG_DIR": "/data/logs/panda_shop_server",
+      "DE_LOG_DIR": "/tmp",
       "ENABLE_NODE_LOG": "YES"
     }
   }]
