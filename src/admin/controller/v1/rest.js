@@ -10,6 +10,7 @@ module.exports = class extends Base {
         super(ctx);
         this.resource = this.getResource();
         this.id = this.getId();
+        console.log(this.resource,"this.resource")
         assert(think.isFunction(this.model), 'this.model must be a function');
         this.modelInstance = this.model(this.resource);
     }
@@ -51,7 +52,7 @@ module.exports = class extends Base {
      * @return {String} [resource name]
      */
     getResource() {
-        return this.ctx.controller.split('/').pop();
+        return this.ctx.path.split('/').pop();
     }
 
     getId() {

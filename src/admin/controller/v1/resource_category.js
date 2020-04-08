@@ -15,6 +15,8 @@ module.exports = class extends BaseRest {
             let order = this.get('order') || 'id ASC';
             let page = this.get('page');
             let name = this.get('name') || "";
+
+            console.log(this.modelInstance,"modelInstance")
             if (!page) {
                 // 不传分页默认返回所有
                 let where = null;
