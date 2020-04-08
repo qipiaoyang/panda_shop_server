@@ -8,6 +8,7 @@ module.exports = class extends Base {
 
     constructor(ctx) {
         super(ctx);
+        console.log(this,"123123")
         this.resource = this.getResource();
         this.id = this.getId();
         assert(think.isFunction(this.model), 'this.model must be a function');
