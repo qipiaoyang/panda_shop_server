@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 08/04/2020 16:40:26
+ Date: 08/04/2020 16:52:41
 */
 
 SET NAMES utf8mb4;
@@ -69,6 +69,23 @@ CREATE TABLE `p_auth_user_role` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_role` (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Table structure for p_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `p_menu`;
+CREATE TABLE `p_menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '父级ID',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `title` varchar(100) DEFAULT NULL COMMENT '菜单名称',
+  `level` int(4) DEFAULT NULL COMMENT '菜单级数',
+  `sort` int(4) DEFAULT NULL COMMENT '菜单排序',
+  `name` varchar(100) DEFAULT NULL COMMENT '前端名称',
+  `icon` varchar(200) DEFAULT NULL COMMENT '前端图标',
+  `hidden` int(1) DEFAULT NULL COMMENT '前端隐藏',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Table structure for p_user
