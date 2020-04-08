@@ -17,17 +17,27 @@ module.exports = class extends BaseRest {
             let name = this.get('name') || "";
             if (!page) {
                 // 不传分页默认返回所有
-                data = await this.modelInstance.where({
-                    username: ['like', `%${name}%`]
-                }).order(order).select();
+                if(!think.isEmpty(name)) {
+                    data = await this.modelInstance.where({
+                        username: ['like', `%${name}%`]
+                    }).order(order).select();
+                } else {
+                    data = await this.modelInstance.order(order).select();
+                }
                 return this.success(data);
             } else {
                 // 传了分页返回分页数据
                 let pageSize = this.get('size') || 10;
-                data = await this.modelInstance.where({
-                    username: ['like', `%${name}%`]
-                }).page(page, pageSize).order(order).countSelect();
-                return this.success(data);
+                if(!think.isEmpty(name)) {
+                    data = await this.modelInstance.where({
+                        username: ['like', `%${name}%`]
+                    }).page(page, pageSize).order(order).countSelect();
+                    return this.success(data);
+
+                } else {
+                    data = await this.modelInstance.page(page, pageSize).order(order).countSelect();
+                    return this.success(data);
+                }
             }
         } catch (e) {
             think.logger.error(new Error(e));
@@ -72,7 +82,7 @@ module.exports = class extends BaseRest {
             }
             const pk = this.modelInstance.pk;
             const data = this.post();
-            data[pk] = this.id; 
+            data[pk] = this.id;
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }

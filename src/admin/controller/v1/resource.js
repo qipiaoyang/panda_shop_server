@@ -8,17 +8,19 @@ module.exports = class extends BaseRest {
             if (this.id) {
                 const pk = this.modelInstance.pk;
                 data = await this.modelInstance.where({[pk]: this.id}).find();
+                delete data.password;
                 return this.success(data);
             }
             // 所有对象
             let order = this.get('order') || 'id ASC';
             let page = this.get('page');
-            let desc = this.get('desc') || "";
+            let name = this.get('name') || "";
             if (!page) {
                 // 不传分页默认返回所有
-                if(!think.isEmpty(desc)) {
+                let where = null;
+                if(think.isEmpty(name)) {
                     data = await this.modelInstance.where({
-                        desc: ['like', `%${desc}%`]
+                        username: ['like', `%${name}%`]
                     }).order(order).select();
                 } else {
                     data = await this.modelInstance.order(order).select();
@@ -27,9 +29,9 @@ module.exports = class extends BaseRest {
             } else {
                 // 传了分页返回分页数据
                 let pageSize = this.get('size') || 10;
-                if(!think.isEmpty(desc)) {
+                if(think.isEmpty(name)) {
                     data = await this.modelInstance.where({
-                        desc: ['like', `%${desc}%`]
+                        username: ['like', `%${name}%`]
                     }).page(page, pageSize).order(order).countSelect();
                 } else {
                     data = await this.modelInstance.page(page, pageSize).order(order).countSelect();
@@ -45,25 +47,31 @@ module.exports = class extends BaseRest {
     async postAction() {
         try {
             let data = this.post();
-            data.module = "admin";
-            data.type = 1;
-            data.status = 1;
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
-            if (think.isEmpty(data.desc)) {
-                return this.fail("请传入角色名称");
+            if (think.isEmpty(data.mobile)) {
+                return this.fail("请传入手机号");
             }
-            const hasUser = await this.modelInstance.where({desc: data.desc}).find();
-            if (!think.isEmpty(hasUser)) {
-                return this.fail("该角色已存在～")
+            if (think.isEmpty(data.password)) {
+                return this.fail("请传入密码");
             }
+            if (data.password) {
+                data.password = encryptPassword(data.password);
+                const hasUser = await this.modelInstance.where({mobile: data.mobile}).find();
+                if (!think.isEmpty(hasUser)) {
+                    return this.fail("该用户已存在～");
+                }
+            }
+            data.reg_time = getTime();
+            data.update_time = getTime();
             const insertId = await this.modelInstance.add(data);
             return this.success({id: insertId});
         } catch (e) {
             think.logger.error(new Error(e));
             return this.fail(500, "接口异常！");
         }
+
     }
 
     async putAction() {
@@ -77,10 +85,10 @@ module.exports = class extends BaseRest {
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
-            if (!think.isEmpty(data.desc)) {
-                const hasUser = await this.modelInstance.where({desc: data.desc, id: ['!=', this.id]}).find();
+            if (!think.isEmpty(data.mobile)) {
+                const hasUser = await this.modelInstance.where({mobile: data.mobile, id: ['!=', this.id]}).find();
                 if (!think.isEmpty(hasUser)) {
-                    return this.fail("该角色已存在～")
+                    return this.fail("该手机号已存在～")
                 }
             }
 
@@ -88,11 +96,11 @@ module.exports = class extends BaseRest {
             data.update_time = getTime();
             const rows = await this.modelInstance.where({[pk]: this.id}).update(data);
             return this.success({affectedRows: rows});
+
         } catch (e) {
             think.logger.error(new Error(e));
             return this.fail(500, "接口异常！");
         }
-
     }
 
 
