@@ -65,7 +65,7 @@ module.exports = class extends BaseRest {
             }
             const pk = this.modelInstance.pk;
             const data = this.post();
-            data[pk] = this.id; // rewrite data[pk] forbidden data[pk] !== this.id
+            data[pk] = this.id;
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }

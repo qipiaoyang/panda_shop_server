@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 07/04/2020 00:29:42
+ Date: 08/04/2020 16:40:26
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,15 @@ CREATE TABLE `p_auth_role` (
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '组类型',
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of p_auth_role
+-- ----------------------------
+BEGIN;
+INSERT INTO `p_auth_role` VALUES (1, '超级管理员', '超级管理员', 1, NULL, 'admin', 0, 0);
+INSERT INTO `p_auth_role` VALUES (2, '管理员', '管理员', 1, NULL, 'admin', 1, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for p_auth_rule
@@ -83,7 +91,7 @@ CREATE TABLE `p_user` (
 -- Records of p_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `p_user` VALUES (1, '齐飘洋2', '98e7bad2e93f2740d6d6096be1aaee87', '13886441638', '956634645@qq.com', 1, 0, 1586188572445);
+INSERT INTO `p_user` VALUES (1, '齐飘洋2', '4031b94cb113282a50b007fe12e955ad', '13886441638', '956634645@qq.com', 1, 0, 1586191082863);
 INSERT INTO `p_user` VALUES (3, '何润升1', '98e7bad2e93f2740d6d6096be1aaee87', '13886441637', '956634645@qq.com', 0, 0, 1586189578835);
 INSERT INTO `p_user` VALUES (5, '何润升', '98e7bad2e93f2740d6d6096be1aaee87', '13886441639', '956634645@qq.com', 1, 0, 1586189580640);
 INSERT INTO `p_user` VALUES (6, '何润升', '98e7bad2e93f2740d6d6096be1aaee87', '13886441631', '956634645@qq.com', 0, 0, 1586190257424);
