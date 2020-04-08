@@ -51,6 +51,7 @@ module.exports = class extends Base {
      * @return {String} [resource name]
      */
     getResource() {
+        console.log(this.ctx.controller,"11111")
         return this.ctx.controller.split('/').pop();
     }
 
