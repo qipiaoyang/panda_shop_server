@@ -14,13 +14,13 @@ module.exports = class extends BaseRest {
             // 所有对象
             let order = this.get('order') || 'id ASC';
             let page = this.get('page');
-            let name = this.get('name') || "";
+            let title = this.get('title') || "";
             if (!page) {
                 // 不传分页默认返回所有
                 let where = null;
-                if(think.isEmpty(name)) {
+                if(think.isEmpty(title)) {
                     data = await this.modelInstance.where({
-                        username: ['like', `%${name}%`]
+                        title: ['like', `%${title}%`]
                     }).order(order).select();
                 } else {
                     data = await this.modelInstance.order(order).select();
@@ -29,9 +29,9 @@ module.exports = class extends BaseRest {
             } else {
                 // 传了分页返回分页数据
                 let pageSize = this.get('size') || 10;
-                if(think.isEmpty(name)) {
+                if(think.isEmpty(title)) {
                     data = await this.modelInstance.where({
-                        username: ['like', `%${name}%`]
+                        title: ['like', `%${title}%`]
                     }).page(page, pageSize).order(order).countSelect();
                 } else {
                     data = await this.modelInstance.page(page, pageSize).order(order).countSelect();
