@@ -16,23 +16,23 @@ module.exports = class extends BaseRest {
             let desc = this.get('desc') || "";
             if (!page) {
                 // 不传分页默认返回所有
-                if(!think.isEmpty(desc)) {
+                if(think.isEmpty(desc)) {
+                    data = await this.modelInstance.order(order).select();
+                } else {
                     data = await this.modelInstance.where({
                         desc: ['like', `%${desc}%`]
                     }).order(order).select();
-                } else {
-                    data = await this.modelInstance.order(order).select();
                 }
                 return this.success(data);
             } else {
                 // 传了分页返回分页数据
                 let pageSize = this.get('size') || 10;
-                if(!think.isEmpty(desc)) {
+                if(think.isEmpty(desc)) {
+                    data = await this.modelInstance.page(page, pageSize).order(order).countSelect();
+                } else {
                     data = await this.modelInstance.where({
                         desc: ['like', `%${desc}%`]
                     }).page(page, pageSize).order(order).countSelect();
-                } else {
-                    data = await this.modelInstance.page(page, pageSize).order(order).countSelect();
                 }
                 return this.success(data);
             }

@@ -19,22 +19,22 @@ module.exports = class extends BaseRest {
                 // 不传分页默认返回所有
                 let where = null;
                 if(think.isEmpty(name)) {
-                    data = await this.modelInstance.where({
-                        username: ['like', `%${name}%`]
-                    }).order(order).select();
-                } else {
                     data = await this.modelInstance.order(order).select();
+                } else {
+                    data = await this.modelInstance.where({
+                        name: ['like', `%${name}%`]
+                    }).order(order).select();
                 }
                 return this.success(data);
             } else {
                 // 传了分页返回分页数据
                 let pageSize = this.get('size') || 10;
                 if(think.isEmpty(name)) {
-                    data = await this.modelInstance.where({
-                        username: ['like', `%${name}%`]
-                    }).page(page, pageSize).order(order).countSelect();
-                } else {
                     data = await this.modelInstance.page(page, pageSize).order(order).countSelect();
+                } else {
+                    data = await this.modelInstance.where({
+                        name: ['like', `%${name}%`]
+                    }).page(page, pageSize).order(order).countSelect();
                 }
                 return this.success(data);
             }
