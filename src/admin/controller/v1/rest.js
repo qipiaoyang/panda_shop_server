@@ -40,7 +40,7 @@ module.exports = class extends Base {
     async getUserInfo() {
         let userId = this.ctx.state.userInfo.id;
         if (think.isEmpty(userId)) return false;
-        let userInfo = await this.model('user').getUser({id: userId});
+        let userInfo = await this.model('auth_user').getUser({id: userId});
         if (think.isEmpty(userInfo)) return false;
         return userInfo;
     }
