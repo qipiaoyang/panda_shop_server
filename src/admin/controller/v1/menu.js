@@ -56,9 +56,6 @@ module.exports = class extends BaseRest {
             if (think.isEmpty(data.title)) {
                 return this.fail("请传入目录菜单");
             }
-            if (think.isEmpty(data.sort)) {
-                return this.fail("请传入层级");
-            }
             if (think.isEmpty(data.name)) {
                 return this.fail("请传入前端名称");
             }
@@ -67,7 +64,12 @@ module.exports = class extends BaseRest {
             }
             data.create_time = getTime();
             data.update_time = getTime();
-            data.level = 0;
+
+            if(data.parent_id === 0) {
+                data.level = 0;
+            } else {
+                data.level = 1;
+            }
             const insertId = await this.modelInstance.add(data);
             return this.success({id: insertId});
         } catch (e) {
