@@ -56,7 +56,7 @@ module.exports = class extends BaseRest {
             if (think.isEmpty(data.title)) {
                 return this.fail("请传入目录菜单");
             }
-            if (think.isEmpty(data.level)) {
+            if (think.isEmpty(data.sort)) {
                 return this.fail("请传入层级");
             }
             if (think.isEmpty(data.name)) {
