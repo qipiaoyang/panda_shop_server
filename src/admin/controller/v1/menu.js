@@ -15,15 +15,16 @@ module.exports = class extends BaseRest {
             let order = this.get('order') || 'id ASC';
             let page = this.get('page');
             let title = this.get('title') || "";
+            let parent_id = this.get("parent_id");
             if (!page) {
-                // 不传分页默认返回所有
-                if(think.isEmpty(title)) {
-                    data = await this.modelInstance.order(order).select();
-                } else {
-                    data = await this.modelInstance.where({
-                        title: ['like', `%${title}%`]
-                    }).order(order).select();
+                const map = {};
+                if(!think.isEmpty(title)) {
+                    map.title = ['like', `%${title}%`];
                 }
+                if(!think.isEmpty(parent_id)) {
+                    map.parent_id = parent_id;
+                }
+                data = await this.modelInstance.where(map).order(order).select();
                 return this.success(data);
             } else {
                 // 传了分页返回分页数据
@@ -49,21 +50,24 @@ module.exports = class extends BaseRest {
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
-            if (think.isEmpty(data.mobile)) {
-                return this.fail("请传入手机号");
+            if (think.isEmpty(data.parent_id)) {
+                return this.fail("请传入父级id");
             }
-            if (think.isEmpty(data.password)) {
-                return this.fail("请传入密码");
+            if (think.isEmpty(data.title)) {
+                return this.fail("请传入目录菜单");
             }
-            if (data.password) {
-                data.password = encryptPassword(data.password);
-                const hasUser = await this.modelInstance.where({mobile: data.mobile}).find();
-                if (!think.isEmpty(hasUser)) {
-                    return this.fail("该用户已存在～");
-                }
+            if (think.isEmpty(data.level)) {
+                return this.fail("请传入层级");
             }
-            data.reg_time = getTime();
+            if (think.isEmpty(data.name)) {
+                return this.fail("请传入前端名称");
+            }
+            if (think.isEmpty(data.icon)) {
+                return this.fail("请传入前端图标");
+            }
+            data.create_time = getTime();
             data.update_time = getTime();
+            data.level = 0;
             const insertId = await this.modelInstance.add(data);
             return this.success({id: insertId});
         } catch (e) {

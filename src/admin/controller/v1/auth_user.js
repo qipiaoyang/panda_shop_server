@@ -64,7 +64,7 @@ module.exports = class extends BaseRest {
                     return this.fail("该用户已存在～");
                 }
             }
-            data.reg_time = getTime();
+            data.create_time = getTime();
             data.update_time = getTime();
             const insertId = await this.modelInstance.add(data);
             return this.success({id: insertId});
