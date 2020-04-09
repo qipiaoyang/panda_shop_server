@@ -59,9 +59,6 @@ module.exports = class extends BaseRest {
             if (think.isEmpty(data.name)) {
                 return this.fail("请传入前端名称");
             }
-            if (think.isEmpty(data.icon)) {
-                return this.fail("请传入前端图标");
-            }
             data.create_time = getTime();
             data.update_time = getTime();
 
@@ -90,14 +87,15 @@ module.exports = class extends BaseRest {
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
-            if (!think.isEmpty(data.mobile)) {
-                const hasUser = await this.modelInstance.where({mobile: data.mobile, id: ['!=', this.id]}).find();
-                if (!think.isEmpty(hasUser)) {
-                    return this.fail("该手机号已存在～")
-                }
+            if (think.isEmpty(data.parent_id)) {
+                return this.fail("请传入父级id");
             }
-
-            data.password = encryptPassword(data.password);
+            if (think.isEmpty(data.title)) {
+                return this.fail("请传入目录菜单");
+            }
+            if (think.isEmpty(data.name)) {
+                return this.fail("请传入前端名称");
+            }
             data.update_time = getTime();
             const rows = await this.modelInstance.where({[pk]: this.id}).update(data);
             return this.success({affectedRows: rows});
