@@ -8,7 +8,6 @@ module.exports = class extends Base {
 
     constructor(ctx) {
         super(ctx);
-        console.log(this,"123123")
         this.resource = this.getResource();
         this.id = this.getId();
         assert(think.isFunction(this.model), 'this.model must be a function');
@@ -41,7 +40,7 @@ module.exports = class extends Base {
     async getUserInfo() {
         let userId = this.ctx.state.userInfo.id;
         if (think.isEmpty(userId)) return false;
-        let userInfo = await this.model('auth_user').getUser({id: userId});
+        let userInfo = await this.model('admin').getUser({id: userId});
         if (think.isEmpty(userInfo)) return false;
         return userInfo;
     }
@@ -52,7 +51,6 @@ module.exports = class extends Base {
      * @return {String} [resource name]
      */
     getResource() {
-        console.log(this.ctx.controller,"11111")
         return this.ctx.controller.split('/').pop();
     }
 
