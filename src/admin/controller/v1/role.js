@@ -15,25 +15,25 @@ module.exports = class extends BaseRest {
             // 所有对象
             let order = this.get('order') || 'role_id ASC';
             let page = this.get('page');
-            let desc = this.get('desc') || "";
+            let role_name = this.get('role_name') || "";
             if (!page) {
                 // 不传分页默认返回所有
-                if(think.isEmpty(desc)) {
+                if(think.isEmpty(role_name)) {
                     data = await this.modelInstance.order(order).select();
                 } else {
                     data = await this.modelInstance.where({
-                        desc: ['like', `%${desc}%`]
+                        role_name: ['like', `%${role_name}%`]
                     }).order(order).select();
                 }
                 return this.success(data);
             } else {
                 // 传了分页返回分页数据
                 let pageSize = this.get('size') || 10;
-                if(think.isEmpty(desc)) {
+                if(think.isEmpty(role_name)) {
                     data = await this.modelInstance.page(page, pageSize).order(order).countSelect();
                 } else {
                     data = await this.modelInstance.where({
-                        desc: ['like', `%${desc}%`]
+                        role_name: ['like', `%${role_name}%`]
                     }).page(page, pageSize).order(order).countSelect();
                 }
                 return this.success(data);
@@ -53,10 +53,10 @@ module.exports = class extends BaseRest {
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
-            if (think.isEmpty(data.desc)) {
+            if (think.isEmpty(data.role_name)) {
                 return this.fail("请传入角色名称");
             }
-            const hasUser = await this.modelInstance.where({desc: data.desc}).find();
+            const hasUser = await this.modelInstance.where({role_name: data.role_name}).find();
             if (!think.isEmpty(hasUser)) {
                 return this.fail("该角色已存在～")
             }
@@ -73,14 +73,14 @@ module.exports = class extends BaseRest {
             if (!this.id) {
                 return this.fail('params error');
             }
-            const pk = this.modelInstance.pk;
+            const pk = "role_id";
             const data = this.post();
             data[pk] = this.id;
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
-            if (!think.isEmpty(data.desc)) {
-                const hasUser = await this.modelInstance.where({desc: data.desc, id: ['!=', this.id]}).find();
+            if (!think.isEmpty(data.role_name)) {
+                const hasUser = await this.modelInstance.where({role_name: data.role_name, role_id: ['!=', this.id]}).find();
                 if (!think.isEmpty(hasUser)) {
                     return this.fail("该角色已存在～")
                 }
