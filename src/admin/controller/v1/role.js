@@ -11,7 +11,7 @@ module.exports = class extends BaseRest {
                 return this.success(data);
             }
             // 所有对象
-            let order = this.get('order') || 'id ASC';
+            let order = this.get('order') || 'role_id ASC';
             let page = this.get('page');
             let desc = this.get('desc') || "";
             if (!page) {
