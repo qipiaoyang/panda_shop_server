@@ -5,11 +5,13 @@ module.exports = class extends BaseRest {
     async getAction() {
         try {
             let data;
+            this.modelInstance._pk = "role_id";
             if (this.id) {
-                const pk = this.modelInstance.pk;
+                const pk = "role_id";
                 data = await this.modelInstance.where({[pk]: this.id}).find();
                 return this.success(data);
             }
+
             // 所有对象
             let order = this.get('order') || 'role_id ASC';
             let page = this.get('page');
