@@ -24,6 +24,7 @@ module.exports = class extends BaseRest {
                         username: ['like', `%${name}%`]
                     }).order(order).select();
                 }
+                console.log(data,"1111")
                 return this.success(data);
             } else {
                 // 传了分页返回分页数据
