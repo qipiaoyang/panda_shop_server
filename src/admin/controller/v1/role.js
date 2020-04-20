@@ -50,6 +50,8 @@ module.exports = class extends BaseRest {
             data.module = "admin";
             data.type = 1;
             data.status = 1;
+            data.create_time = getTime();
+            data.update_time = getTime();
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
