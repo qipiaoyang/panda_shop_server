@@ -5,9 +5,9 @@ module.exports = class extends BaseRest {
     async getAction() {
         try {
             let data;
-            this.modelInstance._pk = "role_id";
+
             if (this.id) {
-                const pk = "role_id";
+                const pk = this.modelInstance.pk;
                 data = await this.modelInstance.where({[pk]: this.id}).find();
                 return this.success(data);
             }
@@ -75,14 +75,14 @@ module.exports = class extends BaseRest {
             if (!this.id) {
                 return this.fail('params error');
             }
-            const pk = "role_id";
+            const pk = "id";
             const data = this.post();
             data[pk] = this.id;
             if (think.isEmpty(data)) {
                 return this.fail('data is empty');
             }
             if (!think.isEmpty(data.role_name)) {
-                const hasUser = await this.modelInstance.where({role_name: data.role_name, role_id: ['!=', this.id]}).find();
+                const hasUser = await this.modelInstance.where({role_name: data.role_name, id: ['!=', this.id]}).find();
                 if (!think.isEmpty(hasUser)) {
                     return this.fail("该角色已存在～")
                 }
